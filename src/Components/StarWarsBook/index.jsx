@@ -27,9 +27,15 @@ const StarWarsBook = () => {
   const handleShowPilots = async (pilotURLs) => {
     const s = await fetchFromUrls(pilotURLs);
     setPilots(s);
+    console.log(s);
   };
+
   const handleAddFavorites = async (pilotName) =>
-    setFavorites((prevState) => [pilotName, ...prevState]);
+    setFavorites((prevState) =>
+      prevState.includes(pilotName) ? prevState : [pilotName, ...prevState]
+    );
+  const handleRemoveFavorites = async (pilotName) =>
+    setFavorites((prevState) => prevState.filter((name) => name !== pilotName));
 
   const renderFilms = () =>
     films.map((film) => (
@@ -67,13 +73,21 @@ const StarWarsBook = () => {
         handleAddFavorites={() => handleAddFavorites(pilot.name)}
       />
     ));
+  const renderFavorites = () =>
+    favorites.map((pilotName) => (
+      <FavoritePilot
+        key={pilotName}
+        name={pilotName}
+        handleRemoveFavorites={() => handleRemoveFavorites(pilotName)}
+      />
+    ));
 
   return (
     <>
       {renderFilms()}
       {renderStarships()}
       {renderPilots()}
-      <FavoritePilot />
+      {renderFavorites()}
     </>
   );
 };
