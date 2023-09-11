@@ -8,3 +8,11 @@ export const fetchFilms = async () => {
   const response = await api.get("/films");
   return response.data.results;
 };
+
+const fetchData = async (url) => {
+  const response = await axios.get(url);
+  return response.data;
+};
+
+export const fetchFromUrls = async (urls) =>
+  await Promise.all(urls.map(fetchData));
