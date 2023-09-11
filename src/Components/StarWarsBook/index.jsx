@@ -12,6 +12,8 @@ const StarWarsBook = () => {
   const [starships, setStarships] = useState([]);
   const [pilots, setPilots] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [toggleFilm, setTogglefilm] = useState("");
+  const [toggleStarship, setToggleStarship] = useState("");
 
   useEffect(() => {
     const getFilms = async () => {
@@ -21,15 +23,11 @@ const StarWarsBook = () => {
     getFilms();
   }, []);
 
-  const handleShowStarships = async (starshipURLs) => {
-    const s = await fetchFromUrls(starshipURLs);
-    setStarships(s);
-  };
-  const handleShowPilots = async (pilotURLs) => {
-    const s = await fetchFromUrls(pilotURLs);
-    setPilots(s);
-    console.log(s);
-  };
+  const handleShowStarships = async (starshipURLs) =>
+    setStarships(await fetchFromUrls(starshipURLs));
+
+  const handleShowPilots = async (pilotURLs) =>
+    setPilots(await fetchFromUrls(pilotURLs));
 
   const handleAddFavorites = async (pilotName) =>
     setFavorites((prevState) =>
@@ -42,11 +40,10 @@ const StarWarsBook = () => {
     films.map((film) => (
       <Film
         key={film.episode_id}
-        title={film.title}
-        opening_crawl={film.opening_crawl}
-        episode_id={film.episode_id}
-        release_date={film.release_date}
+        film={film}
         handleShowStarships={() => handleShowStarships(film.starships)}
+        toggleFilm={toggleFilm}
+        setTogglefilm={setTogglefilm}
       />
     ));
 
@@ -54,11 +51,10 @@ const StarWarsBook = () => {
     starships.map((starship) => (
       <Starship
         key={starship.name}
-        name={starship.name}
-        model={starship.model}
-        max_atmosphering_speed={starship.max_atmosphering_speed}
-        starship_class={starship.starship_class}
+        starship={starship}
         handleShowPilots={() => handleShowPilots(starship.pilots)}
+        toggleStarship={toggleStarship}
+        setToggleStarship={setToggleStarship}
       />
     ));
 
@@ -66,11 +62,7 @@ const StarWarsBook = () => {
     pilots.map((pilot) => (
       <Pilot
         key={pilot.name}
-        name={pilot.name}
-        height={pilot.height}
-        mass={pilot.mass}
-        birth_year={pilot.birth_year}
-        gender={pilot.gender}
+        pilot={pilot}
         handleAddFavorites={() => handleAddFavorites(pilot.name)}
       />
     ));

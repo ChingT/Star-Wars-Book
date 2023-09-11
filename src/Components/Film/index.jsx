@@ -5,26 +5,26 @@ String.prototype.removeNewline = function () {
   return this.split("\r\n").join(" ");
 };
 
-function Film({
-  title,
-  opening_crawl,
-  episode_id,
-  release_date,
-  handleShowStarships,
-}) {
+function Film({ film, handleShowStarships, toggleFilm, setTogglefilm }) {
+  const title = film.title;
+
   const handleClick = (e) => {
     e.preventDefault();
     handleShowStarships();
   };
 
+  const getDetails = () => (
+    <Details>
+      <div>Opening Crawl: {film.opening_crawl.removeNewline()}</div>
+      <div>Episode ID: {film.episode_id}</div>
+      <div>Release Date: {film.release_date}</div>
+    </Details>
+  );
+
   return (
-    <Card>
+    <Card onClick={() => setTogglefilm(title)}>
       <Title>{title}</Title>
-      <Details>
-        <div>Opening Crawl: {opening_crawl.removeNewline()}</div>
-        <div>Episode ID: {episode_id}</div>
-        <div>Release Date: {release_date}</div>
-      </Details>
+      {toggleFilm === title && getDetails()}
       <Button onClick={handleClick}>show starships</Button>
     </Card>
   );
