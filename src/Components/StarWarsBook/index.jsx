@@ -23,6 +23,16 @@ const StarWarsBook = () => {
     getFilms();
   }, []);
 
+  const handleToggleFilm = (filmTitle) => {
+    setTogglefilm(filmTitle);
+    setStarships([]);
+    setPilots([]);
+  };
+  const handelToggleStarship = (StarshipTitle) => {
+    setToggleStarship(StarshipTitle);
+    setPilots([]);
+  };
+
   const handleShowStarships = async (starshipURLs) =>
     setStarships(await fetchFromUrls(starshipURLs));
 
@@ -42,8 +52,8 @@ const StarWarsBook = () => {
         key={film.episode_id}
         film={film}
         handleShowStarships={() => handleShowStarships(film.starships)}
-        toggleFilm={toggleFilm}
-        setTogglefilm={setTogglefilm}
+        toggle={toggleFilm}
+        handleToggle={handleToggleFilm}
       />
     ));
 
@@ -53,8 +63,8 @@ const StarWarsBook = () => {
         key={starship.name}
         starship={starship}
         handleShowPilots={() => handleShowPilots(starship.pilots)}
-        toggleStarship={toggleStarship}
-        setToggleStarship={setToggleStarship}
+        toggle={toggleStarship}
+        handelToggle={handelToggleStarship}
       />
     ));
 
@@ -66,6 +76,7 @@ const StarWarsBook = () => {
         handleAddFavorites={() => handleAddFavorites(pilot.name)}
       />
     ));
+
   const renderFavorites = () =>
     favorites.map((pilotName) => (
       <FavoritePilot

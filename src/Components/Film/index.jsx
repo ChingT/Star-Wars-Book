@@ -5,7 +5,7 @@ String.prototype.removeNewline = function () {
   return this.split("\r\n").join(" ");
 };
 
-function Film({ film, handleShowStarships, toggleFilm, setTogglefilm }) {
+function Film({ film, handleShowStarships, toggle, handleToggle }) {
   const title = film.title;
 
   const handleClick = (e) => {
@@ -22,9 +22,9 @@ function Film({ film, handleShowStarships, toggleFilm, setTogglefilm }) {
   );
 
   return (
-    <Card onClick={() => setTogglefilm(title)}>
+    <Card onClick={() => handleToggle(title)}>
       <Title>{title}</Title>
-      {toggleFilm === title && getDetails()}
+      {toggle === title && getDetails()}
       <Button onClick={handleClick}>show starships</Button>
     </Card>
   );

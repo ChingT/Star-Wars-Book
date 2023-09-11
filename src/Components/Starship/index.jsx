@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Card, Title, Details, Button } from "../../global-styles/styled.js";
 
-function Starship({
-  starship,
-  handleShowPilots,
-  toggleStarship,
-  setToggleStarship,
-}) {
+function Starship({ starship, handleShowPilots, toggle, handelToggle }) {
   const title = starship.name;
 
   const handleClick = (e) => {
@@ -25,9 +20,9 @@ function Starship({
   const getButton = () => <Button onClick={handleClick}>show pilots</Button>;
 
   return (
-    <Card onClick={() => setToggleStarship(title)}>
+    <Card onClick={() => handelToggle(title)}>
       <Title>{title}</Title>
-      {toggleStarship === title && getDetails()}
+      {toggle === title && getDetails()}
       {getButton()}
     </Card>
   );
