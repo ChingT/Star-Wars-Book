@@ -1,24 +1,34 @@
 /* eslint-disable react/prop-types */
-function Starship({
-  name,
-  model,
-  max_atmosphering_speed,
-  starship_class,
-  handleShowPilots,
-}) {
+import { Card, Title, Details, Button } from "../../global-styles/styled.js";
+
+function Starship({ starship, handleShowPilots, toggle, handelToggle }) {
+  const title = starship.name;
+
   const handleClick = (e) => {
     e.preventDefault();
     handleShowPilots();
   };
 
+  const getDetails = () => (
+    <Details>
+      <div>Model: {starship.model}</div>
+      <div>Max Atmosphering Speed: {starship.max_atmosphering_speed}</div>
+      <div>Starship Class: {starship.starship_class}</div>
+    </Details>
+  );
+
+  const getButton = () => {
+    if (starship.pilots.length) {
+      return <Button onClick={handleClick}>show pilots</Button>;
+    }
+  };
+
   return (
-    <>
-      <div>{name}</div>
-      <div>Model: {model}</div>
-      <div>Max Atmosphering Speed: {max_atmosphering_speed}</div>
-      <div>Starship Class: {starship_class}</div>
-      <button onClick={handleClick}>show pilots</button>
-    </>
+    <Card expend={toggle === title}  onClick={() => handelToggle(title)}>
+      <Title>{title}</Title>
+      {toggle === title && getDetails()}
+      {getButton()}
+    </Card>
   );
 }
 
