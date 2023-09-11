@@ -17,7 +17,11 @@ function Starship({ starship, handleShowPilots, toggle, handelToggle }) {
     </Details>
   );
 
-  const getButton = () => <Button onClick={handleClick}>show pilots</Button>;
+  const getButton = () => {
+    if (starship.pilots.length) {
+      return <Button onClick={handleClick}>show pilots</Button>;
+    }
+  };
 
   return (
     <Card onClick={() => handelToggle(title)}>
