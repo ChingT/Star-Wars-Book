@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { Card, Title, Details, Button } from "../../global-styles/styled.js";
+
 String.prototype.removeNewline = function () {
   return this.split("\r\n").join(" ");
 };
@@ -16,13 +18,15 @@ function Film({
   };
 
   return (
-    <>
-      <div>{title}</div>
-      <div>Opening Crawl: {opening_crawl.removeNewline()}</div>
-      <div>Episode ID: {episode_id}</div>
-      <div>Release Date: {release_date}</div>
-      <button onClick={handleClick}>show starships</button>
-    </>
+    <Card>
+      <Title>{title}</Title>
+      <Details>
+        <div>Opening Crawl: {opening_crawl.removeNewline()}</div>
+        <div>Episode ID: {episode_id}</div>
+        <div>Release Date: {release_date}</div>
+      </Details>
+      <Button onClick={handleClick}>show starships</Button>
+    </Card>
   );
 }
 

@@ -4,6 +4,7 @@ import Starship from "../Starship";
 import Pilot from "../Pilot";
 import FavoritePilot from "../FavoritePilot";
 import { fetchFilms, fetchFromUrls } from "../../api/fetch";
+import { Book, Column, Header } from "../../global-styles/styled.js";
 import { useEffect, useState } from "react";
 
 const StarWarsBook = () => {
@@ -83,12 +84,24 @@ const StarWarsBook = () => {
     ));
 
   return (
-    <>
-      {renderFilms()}
-      {renderStarships()}
-      {renderPilots()}
-      {renderFavorites()}
-    </>
+    <Book>
+      <Column>
+        <Header>Fims</Header>
+        {renderFilms()}
+      </Column>
+      <Column>
+        <Header>Starships</Header>
+        {renderStarships()}
+      </Column>
+      <Column>
+        <Header>Pilots</Header>
+        {renderPilots()}
+      </Column>
+      <Column>
+        <Header>Favorite Pilots</Header>
+        {renderFavorites()}
+      </Column>
+    </Book>
   );
 };
 

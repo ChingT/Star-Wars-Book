@@ -1,4 +1,3 @@
-import "./App.css";
 import StarWarsBook from "./Components/StarWarsBook";
 
 function App() {

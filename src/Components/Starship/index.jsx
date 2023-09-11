@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { Card, Title, Details, Button } from "../../global-styles/styled.js";
+
 function Starship({
   name,
   model,
@@ -12,13 +14,15 @@ function Starship({
   };
 
   return (
-    <>
-      <div>{name}</div>
-      <div>Model: {model}</div>
-      <div>Max Atmosphering Speed: {max_atmosphering_speed}</div>
-      <div>Starship Class: {starship_class}</div>
-      <button onClick={handleClick}>show pilots</button>
-    </>
+    <Card>
+      <Title>{name}</Title>
+      <Details>
+        <div>Model: {model}</div>
+        <div>Max Atmosphering Speed: {max_atmosphering_speed}</div>
+        <div>Starship Class: {starship_class}</div>
+      </Details>
+      <Button onClick={handleClick}>show pilots</Button>
+    </Card>
   );
 }
 

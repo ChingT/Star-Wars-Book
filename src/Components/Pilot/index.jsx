@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { Card, Title, Details, Button } from "../../global-styles/styled.js";
+
 function Pilot({ name, height, mass, birth_year, gender, handleAddFavorites }) {
   const handleClick = (e) => {
     e.preventDefault();
@@ -6,14 +8,16 @@ function Pilot({ name, height, mass, birth_year, gender, handleAddFavorites }) {
   };
 
   return (
-    <>
-      <div>{name}</div>
-      <div>Height: {height}</div>
-      <div>Mass: {mass}</div>
-      <div>Birth Year: {birth_year}</div>
-      <div>Gender: {gender}</div>
-      <button onClick={handleClick}>Add to Favorites</button>
-    </>
+    <Card>
+      <Title>{name}</Title>
+      <Details>
+        <div>Height: {height}</div>
+        <div>Mass: {mass}</div>
+        <div>Birth Year: {birth_year}</div>
+        <div>Gender: {gender}</div>
+      </Details>
+      <Button onClick={handleClick}>Add favorite</Button>
+    </Card>
   );
 }
 
