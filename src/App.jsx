@@ -1,7 +1,8 @@
 import "./App.css";
+import StarWarsBook from "./Components/StarWarsBook";
 
 function App() {
-  return <></>;
+  return <StarWarsBook />;
 }
 
 export default App;
