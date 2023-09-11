@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 const StarWarsBook = () => {
   const [films, setFilms] = useState([]);
   const [starships, setStarships] = useState([]);
+  const [pilots, setPilots] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const getFilms = async () => {
@@ -26,6 +28,8 @@ const StarWarsBook = () => {
     const s = await fetchFromUrls(pilotURLs);
     setPilots(s);
   };
+  const handleAddFavorites = async (pilotName) =>
+    setFavorites((prevState) => [pilotName, ...prevState]);
 
   const renderFilms = () =>
     films.map((film) => (
@@ -51,11 +55,24 @@ const StarWarsBook = () => {
       />
     ));
 
+  const renderPilots = () =>
+    pilots.map((pilot) => (
+      <Pilot
+        key={pilot.name}
+        name={pilot.name}
+        height={pilot.height}
+        mass={pilot.mass}
+        birth_year={pilot.birth_year}
+        gender={pilot.gender}
+        handleAddFavorites={() => handleAddFavorites(pilot.name)}
+      />
+    ));
+
   return (
     <>
       {renderFilms()}
       {renderStarships()}
-      <Pilot />
+      {renderPilots()}
       <FavoritePilot />
     </>
   );
