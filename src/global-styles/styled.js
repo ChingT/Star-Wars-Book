@@ -3,6 +3,7 @@ import styled from "styled-components";
 const primaryColor = "#ffe81f";
 const textColor = "#f5f5f5";
 const backgroundColor = "#1b1b1b";
+const accentBackgroundColor = "rgba(156, 39, 176, 0.7)";
 
 export const Book = styled.div`
   display: flex;
@@ -20,7 +21,8 @@ export const Column = styled.div`
 `;
 
 export const Card = styled.div`
-  background-color: ${backgroundColor};
+  background-color: ${(props) =>
+    props.expend ? accentBackgroundColor : backgroundColor};
   display: flex;
   flex-direction: column;
   border: solid 4px ${primaryColor};
@@ -38,6 +40,7 @@ export const Header = styled(Card)`
 
 export const Title = styled.div`
   color: ${primaryColor};
+  text-transform: uppercase;
 `;
 
 export const Details = styled.div`
@@ -49,7 +52,7 @@ export const Details = styled.div`
 
 export const Button = styled.button`
   color: ${primaryColor};
-  background-color: inherit;
+  background-color: ${backgroundColor};
   width: fit-content;
   padding: 0.5rem 1rem;
   border-color: ${primaryColor};

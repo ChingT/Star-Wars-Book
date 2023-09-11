@@ -22,7 +22,7 @@ function Film({ film, handleShowStarships, toggle, handleToggle }) {
   );
 
   return (
-    <Card onClick={() => handleToggle(title)}>
+    <Card expend={toggle === title} onClick={() => handleToggle(title)}>
       <Title>{title}</Title>
       {toggle === title && getDetails()}
       <Button onClick={handleClick}>show starships</Button>

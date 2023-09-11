@@ -24,7 +24,7 @@ function Starship({ starship, handleShowPilots, toggle, handelToggle }) {
   };
 
   return (
-    <Card onClick={() => handelToggle(title)}>
+    <Card expend={toggle === title}  onClick={() => handelToggle(title)}>
       <Title>{title}</Title>
       {toggle === title && getDetails()}
       {getButton()}
