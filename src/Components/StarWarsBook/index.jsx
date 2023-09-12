@@ -14,6 +14,8 @@ const StarWarsBook = () => {
   const [favorites, setFavorites] = useState([]);
   const [toggleFilm, setTogglefilm] = useState("");
   const [toggleStarship, setToggleStarship] = useState("");
+  const [cachedStarships, setCachedStarships] = useState({});
+  const [cachedPilots, setCachedPilots] = useState({});
 
   useEffect(() => {
     const getFilms = async () => {
@@ -25,19 +27,44 @@ const StarWarsBook = () => {
 
   const handleToggleFilm = (filmTitle) => {
     setTogglefilm(filmTitle);
-    setStarships([]);
-    setPilots([]);
+    if (filmTitle !== toggleFilm) {
+      setStarships([]);
+      setPilots([]);
+    }
   };
   const handelToggleStarship = (StarshipTitle) => {
     setToggleStarship(StarshipTitle);
-    setPilots([]);
+    if (StarshipTitle !== toggleStarship) {
+      setPilots([]);
+    }
   };
 
-  const handleShowStarships = async (starshipURLs) =>
-    setStarships(await fetchFromUrls(starshipURLs));
+  const handleShowStarships = async (starshipURLs) => {
+    const cachedUrls = starshipURLs.filter((url) => url in cachedStarships);
+    const newUrls = starshipURLs.filter((url) => !(url in cachedStarships));
+    const newStarships = await fetchFromUrls(newUrls);
+    setCachedStarships((prevState) => ({
+      ...prevState,
+      ...Object.fromEntries(
+        newStarships.map((starship) => [starship.url, starship])
+      ),
+    }));
+    setStarships([
+      ...cachedUrls.map((url) => cachedStarships[url]),
+      ...newStarships,
+    ]);
+  };
 
-  const handleShowPilots = async (pilotURLs) =>
-    setPilots(await fetchFromUrls(pilotURLs));
+  const handleShowPilots = async (pilotURLs) => {
+    const cachedUrls = pilotURLs.filter((url) => url in cachedPilots);
+    const newUrls = pilotURLs.filter((url) => !(url in cachedPilots));
+    const newPilots = await fetchFromUrls(newUrls);
+    setCachedPilots((prevState) => ({
+      ...prevState,
+      ...Object.fromEntries(newPilots.map((pilot) => [pilot.url, pilot])),
+    }));
+    setPilots([...cachedUrls.map((url) => cachedPilots[url]), ...newPilots]);
+  };
 
   const handleAddFavorites = async (pilotName) =>
     setFavorites((prevState) =>
@@ -73,6 +100,7 @@ const StarWarsBook = () => {
       <Pilot
         key={pilot.name}
         pilot={pilot}
+        favorites={favorites}
         handleAddFavorites={() => handleAddFavorites(pilot.name)}
       />
     ));
