@@ -17,17 +17,13 @@ function Starship({ starship, handleShowPilots, toggle, handelToggle }) {
     </Details>
   );
 
-  const getButton = () => {
-    if (starship.pilots.length) {
-      return <Button onClick={handleClick}>show pilots</Button>;
-    }
-  };
+  const getButton = () => <Button onClick={handleClick}>show pilots</Button>;
 
   return (
-    <Card expend={toggle === title}  onClick={() => handelToggle(title)}>
+    <Card extend={toggle === title} onClick={() => handelToggle(title)}>
       <Title>{title}</Title>
-      {toggle === title && getDetails()}
-      {getButton()}
+      {toggle === title ? getDetails() : undefined}
+      {starship.pilots.length ? getButton() : undefined}
     </Card>
   );
 }

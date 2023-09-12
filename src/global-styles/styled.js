@@ -22,7 +22,7 @@ export const Column = styled.div`
 
 export const Card = styled.div`
   background-color: ${(props) =>
-    props.expend ? accentBackgroundColor : backgroundColor};
+    props.extend ? accentBackgroundColor : backgroundColor};
   display: flex;
   flex-direction: column;
   border: solid 4px ${primaryColor};
